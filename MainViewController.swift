@@ -24,6 +24,11 @@ class MainViewController: UIViewController, CLLocationManagerDelegate {
     
     @IBAction func help(sender: AnyObject) {
         
+        tagAsSafe(false)
+        
+    }
+    
+    func tagAsSafe(safe: Bool){
         activityIndicator = UIActivityIndicatorView(frame: CGRectMake(0,0,50,50))
         activityIndicator.center = self.view.center
         activityIndicator.hidesWhenStopped = true
@@ -41,6 +46,7 @@ class MainViewController: UIViewController, CLLocationManagerDelegate {
         event["phone"] = currentUser!.valueForKey("phone")!
         event["latitude"] = latitude
         event["longitude"] = longitude
+        event["safe"] = safe
         
         event.saveInBackgroundWithBlock({ (success, error) -> Void in
             self.activityIndicator.stopAnimating()
@@ -52,10 +58,11 @@ class MainViewController: UIViewController, CLLocationManagerDelegate {
                 self.lastRequestLabel.text = "Last request failed to send"
             }
         })
-        
     }
 
     @IBAction func safe(sender: AnyObject) {
+        
+        tagAsSafe(true)
         
     }
     
